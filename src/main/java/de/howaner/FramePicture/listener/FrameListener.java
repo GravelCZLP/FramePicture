@@ -391,14 +391,18 @@ public class FrameListener implements Listener {
 			}
 		}
 		
-		this.manager.removeFrame(frame);
-		if (player != null)
-			player.sendMessage(Lang.PREFIX.getText() + Lang.FRAME_REMOVED.getText().replace("%id", String.valueOf(frame.getId())));
-		
-		for (Entity e : entity.getNearbyEntities(32.0, 32.0, 32.0)) {
-			if (e.getType() != EntityType.PLAYER) continue;
-			Player p = (Player)e;
-			this.sendFrameDestroy(p, entity.getEntityId());
+		if(player.hasPermission("FramePicture.remove")
+		{
+			this.manager.removeFrame(frame);
+			
+			if (player != null)
+				player.sendMessage(Lang.PREFIX.getText() + Lang.FRAME_REMOVED.getText().replace("%id", String.valueOf(frame.getId())));
+			
+			for (Entity e : entity.getNearbyEntities(32.0, 32.0, 32.0)) {
+				if (e.getType() != EntityType.PLAYER) continue;
+				Player p = (Player)e;
+				this.sendFrameDestroy(p, entity.getEntityId());
+			}
 		}
 	}
 	
